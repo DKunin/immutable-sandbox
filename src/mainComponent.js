@@ -20,7 +20,11 @@ var remapAsImmutableMaps = R.map(function(d){
   return R.mapObj(I.Map)(d);
 });
 
-var RestoreHistory = R.compose(I.List, remapAsImmutableMaps)
+var RestoreHistory = R.compose(I.List, R.map(function(d){
+  return I.fromJS(d, function (key, value) {
+    return value.toOrderedMap();
+  });
+}) ,remapAsImmutableMaps)
 
 var BoxHistory = [];
 
@@ -45,7 +49,7 @@ var MainComponent = React.createClass({
     if(hist.length>0) {
       var immutableHistory = RestoreHistory(hist);
       var lastMap = immutableHistory.last()
-      this.setState({boxes:I.OrderedMap(lastMap)});      
+      this.setState({boxes:lastMap});      
     }
     window.lastMap = lastMap;
   },
