@@ -45,7 +45,7 @@ var MainComponent = React.createClass({
   },
   componentDidMount() {
     EventService.on('updateBox', this.savePosition);
-    var hist = JSON.parse(localStorage.getItem('boxHistory')||[]);
+    var hist = JSON.parse(localStorage.getItem('boxHistory')||'[]');
     if(hist.length>0) {
       var immutableHistory = RestoreHistory(hist);
       var lastMap = immutableHistory.last()
