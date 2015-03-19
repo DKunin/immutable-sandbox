@@ -9,12 +9,21 @@ var EventService = require('./event-service');
 var SingleBox = React.createClass({
   handleStop(event, ui) {
     var b = this.props.box;
-    EventService.emit('updateBox', R.merge(ui.position, {uid:b.get('id')}));
+    EventService.emit('updateBox', R.merge(ui.position, {rid:b.get('rid')}));
   },  
+  componentDidUpdate(prevProps, prevState) {
+    var b = this.props.box;
+    this.refs.draggy.setState({
+       clientX: b.get('x'),
+       clientY: b.get('y')
+     });
+  },
   render(){
     var b = this.props.box;
+
     return  <Draggable
-                key={b.get('id')}
+                ref='draggy'
+                key={b.get('rid')}
                 grid={[25, 25]}
                 start={{x: b.get('x'), y: b.get('y')}}
                 zIndex={100}
