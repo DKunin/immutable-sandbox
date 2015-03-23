@@ -2,6 +2,10 @@
 
 Immutable sandbox, build with React, scaffolded with webpack
 
+# Run 
+
+    node server.js
+
 # Libraries to checkout
 
 * [immutable.js](https://github.com/facebook/immutable-js)

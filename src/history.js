@@ -11,7 +11,7 @@ var HistoryPage = React.createClass({
   },
   render(){
     return <div onClick={this.revertToState}>
-      {this.props.childKey} {this.props.cur?'<':''}
+      {this.props.childKey} {this.props.cur&&this.props.isPlaying?'<':''}
     </div>
   }
 })
@@ -19,7 +19,7 @@ var HistoryPage = React.createClass({
 var HistoryComponent = React.createClass({
   getInitialState(){
     return {
-      step:0,
+      step: 0,
       play: false
     }
   },
@@ -35,7 +35,6 @@ var HistoryComponent = React.createClass({
     if(this.isMounted&&this.state.play) {
       var curp = this.state.step;
       curp++;
-      console.log(curp)
       if(curp >= this.props.history.length) {
         this.setState({play:false, step: 0});
       } else {
@@ -47,11 +46,10 @@ var HistoryComponent = React.createClass({
 
   },
   render(){
-
     return <div>
       <div onClick={this.playHistory}>Play history</div>
       {this.props.history.map(function(d, i){
-        return <HistoryPage page={d} key={'history-index'+i} updateIndicator={this.updateIndicator} step={i} cur={this.state.step===i} childKey={'history-index'+i}/>
+        return <HistoryPage page={d} key={'history-index'+i} updateIndicator={this.updateIndicator} step={i} cur={this.state.step===i} childKey={'history-index'+i} isPlaying={this.state.play}/>
       }.bind(this))}
     </div>
   }
