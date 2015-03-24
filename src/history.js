@@ -10,8 +10,8 @@ var HistoryPage = React.createClass({
     this.props.updateIndicator(this.props.step);
   },
   render(){
-    return <div onClick={this.revertToState}>
-      {this.props.childKey} {this.props.cur&&this.props.isPlaying?'<':''}
+    return <div className={'step ' + (this.props.cur&&this.props.isPlaying?'current-step':'') } onClick={this.revertToState}>
+      {this.props.childKey}
     </div>
   }
 })
@@ -45,11 +45,16 @@ var HistoryComponent = React.createClass({
     }
 
   },
+  clearHistory(){
+    localStorage.clear();
+    window.location.reload();
+  },
   render(){
-    return <div>
-      <div onClick={this.playHistory}>Play history</div>
+    return <div className='history-list'>
+      <button onClick={this.playHistory}>Play</button>
+      <button onClick={this.clearHistory}>Clear</button>
       {this.props.history.map(function(d, i){
-        return <HistoryPage page={d} key={'history-index'+i} updateIndicator={this.updateIndicator} step={i} cur={this.state.step===i} childKey={'history-index'+i} isPlaying={this.state.play}/>
+        return <HistoryPage page={d} key={'history-index'+i} updateIndicator={this.updateIndicator} step={i} cur={this.state.step===i} childKey={i} isPlaying={this.state.play}/>
       }.bind(this))}
     </div>
   }

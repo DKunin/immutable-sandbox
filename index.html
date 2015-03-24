@@ -5,15 +5,37 @@
   .react-draggable {
     position: absolute;
     cursor: pointer;
-    width: 50px;
-    height: 50px;
-    border:1px solid gray;
+    width: 100px;
+    height: 100px;
     overflow: hidden;
+  }
+  button {
+    font-size: 45px;
+    font-weight: bold;
   }
   body {
     -webkit-user-select: none; 
     -moz-user-select: none;     
     -ms-user-select: none; 
+  }
+  .history-list {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0; 
+
+  }
+  .history-list div.step{
+    display: inline-block;
+    font-size: 36px;
+    width: 40px;
+    text-align: center;
+    border: 1px solid black;
+    margin: 0 5px;
+    cursor: pointer;
+  } 
+  .current-step {
+    background-color: red;
   }
   </style>    
   </head>

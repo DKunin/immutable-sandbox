@@ -7,16 +7,24 @@ var nodeuid          = require('node-uuid');
 var BoxList          = require('./list');
 var HistoryComponent = require('./history');
 var EventService     = require('./event-service');
-
-var Boxes = I.Map();
-var uid = nodeuid.v1()
-var sampleBoxes = Boxes.set(uid, I.Map({rid:uid,x:50,y:50}))
+var randomColor      = require('random-color');
+var BoxHistory       = [];
+var Boxes            = I.Map();
+var firstUid         = nodeuid.v1();
 
 var randomInt = R.curry(function(min, max) {
   return function(){
     return (min + Math.random()*(max+1-min))^0
   }
 });
+
+var randomFieldCoordinate = randomInt(1,150);
+
+var generateBox = function(uid){
+  return I.Map({rid: uid, x:randomFieldCoordinate(),y:randomFieldCoordinate(), color:randomColor()})
+}
+
+var sampleBoxes = Boxes.set(firstUid, generateBox(firstUid))
 
 var remapAsImmutableMaps = R.map(function(d){
   return R.mapObj(I.Map)(d);
@@ -26,13 +34,11 @@ var RestoreHistory = R.compose(I.List, R.map(function(d){
   return I.fromJS(d, function (key, value) {
     return value.toOrderedMap();
   });
-}) ,remapAsImmutableMaps)
+}) ,remapAsImmutableMaps);
 
-var BoxHistory = [];
-
-var randomFieldCoordinate = randomInt(1,150);
-
-
+var MergeBoxes =  R.curry(function(obj, box){
+  return box.merge({ x:obj.left,y:obj.top})
+});
 
 var MainComponent = React.createClass({
   getInitialState(){
@@ -69,13 +75,13 @@ var MainComponent = React.createClass({
   },
   savePosition: function(obj){
     var curBoxes    = this.state.boxes;
-    var updatedPosition = curBoxes.update(obj.rid, function(d){return d.merge({ x:obj.left,y:obj.top})});
+    var updatedPosition = curBoxes.update(obj.rid, MergeBoxes(obj));
     this.updateAllBoxes(updatedPosition);
   },
   addBox(){
     var curBoxes    = this.state.boxes;
     var uid         = nodeuid.v1();
-    var newCurBoxes = curBoxes.set(uid, I.Map({rid:uid,x:randomFieldCoordinate(),y:randomFieldCoordinate()}));
+    var newCurBoxes = curBoxes.set(uid, generateBox(uid));
     this.updateAllBoxes(newCurBoxes);
   },
   render() {

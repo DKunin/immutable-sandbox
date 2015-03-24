@@ -39,6 +39,7 @@
     "immutable": "^3.6.4",
     "node-uuid": "^1.4.3",
     "ramda": "^0.11.0",
+    "random-color": "0.0.1",
     "react": "^0.12.2",
     "react-draggable": "^0.4.0"
   },

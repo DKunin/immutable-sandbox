@@ -23,14 +23,15 @@ var SingleBox = React.createClass({
 
     return  <Draggable
                 ref='draggy'
+                
                 key={b.get('rid')}
                 grid={[25, 25]}
                 start={{x: b.get('x'), y: b.get('y')}}
                 zIndex={100}
                 onStop={this.handleStop}>
-                <div>
-                    {b.get('id')}
-                </div>
+                  
+                <div style={{'background-color': b.get('color')}}></div>
+
             </Draggable>
   }
 });
