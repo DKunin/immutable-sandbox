@@ -26,7 +26,7 @@ var HistoryComponent = React.createClass({
   playHistory(){
     var st = this.state.play;
     this.setState({play:!st, step:0});
-    setTimeout(this.updateStep, 500);
+    setTimeout(this.updateStep, 150);
   },
   updateIndicator(step){
     this.setState({step:step})
@@ -40,7 +40,7 @@ var HistoryComponent = React.createClass({
       } else {
         EventService.emit('timeTravel', this.props.history[curp]);
         this.setState({step: curp})
-        setTimeout(this.updateStep, 500);        
+        setTimeout(this.updateStep, 150);        
       }
     }
 
