@@ -18,4 +18,8 @@ Immutable sandbox, build with React, scaffolded with webpack
 * [ancient-oak](https://github.com/brainshave/ancient-oak) 
 
 
+# Presentation from MoscowJS 20 talk
+
+* [immutableData](http://dkunin.github.io/immutableData)
+
 
