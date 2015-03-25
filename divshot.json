@@ -1,0 +1,6 @@
+{
+  "name": "immutable-sand",
+  "root": "./build",
+  "clean_urls": true,
+  "error_page": "error.html"
+}
