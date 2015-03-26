@@ -102,6 +102,7 @@ var MainComponent = React.createClass({
     return (
       <div>
         <button onClick={this.addBox}>+</button>
+        <button onClick={restoreCertainHistory}>restore</button>
         <BoxList boxes={this.state.boxes}/>
         <HistoryComponent history={BoxHistory} />
       </div>
